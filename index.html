@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>お金のクセ診断｜あなたに似ている丘の住民は？</title>
+<meta name="description" content="10問・約2分。ふだんの行動から、お金との付き合い方のクセを楽しく振り返る診断。毎日1本の30秒解説つき。">
+<link rel="icon" href="assets/favicon-32.png">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#fdf8ef">
+<link rel="apple-touch-icon" href="assets/icon-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="お金のクセ診断">
+<meta property="og:type" content="website">
+<meta property="og:title" content="お金のクセ診断｜あなたに似ている丘の住民は？">
+<meta property="og:description" content="10問・約2分。ふだんの行動から、お金との付き合い方のクセを楽しく振り返る診断。">
+<meta property="og:image" content="https://rincanvas-hash.github.io/okane-kuse/assets/og.jpg">
+<meta property="og:url" content="https://rincanvas-hash.github.io/okane-kuse/">
+<meta name="twitter:card" content="summary_large_image">
+<style>
+  :root{
+    --bg:#fdf8ef; --bg2:#f3ead9; --ink:#4a4038; --sub:#8a7b6c;
+    --card:#fffdf8; --line:#e6dbc7; --green:#7fa278; --green2:#6b8a64;
+    --gold:#d9a93c; --gold2:#b8892a; --gold-soft:#f6e7bd; --orange:#e8913f;
+    --shadow:0 10px 28px rgba(120,100,70,.16);
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html,body{margin:0;padding:0}
+  body{
+    background:linear-gradient(180deg,var(--bg) 0%,var(--bg2) 100%);
+    background-attachment:fixed; color:var(--ink);
+    font-family:"Hiragino Maru Gothic ProN","Hiragino Sans","Yu Gothic UI","Meiryo",system-ui,sans-serif;
+    line-height:1.7; padding:0 16px calc(28px + env(safe-area-inset-bottom));
+  }
+  .wrap{max-width:440px;margin:0 auto}
+  header{text-align:center;padding:22px 0 6px}
+  header h1{margin:0;font-size:25px;letter-spacing:.1em}
+  header h1 .g{color:var(--gold2)}
+  header p{margin:4px 0 0;font-size:13px;color:var(--sub)}
+  .screen{display:none;animation:fade .4s ease both}
+  .screen.on{display:block}
+  @keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+  .photo{width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:22px;
+    box-shadow:var(--shadow);background:#eee8dc;display:block}
+
+  .btn{display:block;width:100%;border:0;border-radius:999px;padding:16px;
+    font-size:18px;font-weight:700;font-family:inherit;color:#fff;
+    background:var(--green);box-shadow:0 6px 0 var(--green2);cursor:pointer;margin:14px 0 10px;text-align:center;text-decoration:none}
+  .btn:active{transform:translateY(3px);box-shadow:0 3px 0 var(--green2)}
+  .btn.gold{background:linear-gradient(180deg,#e6bb55,var(--gold));box-shadow:0 6px 0 var(--gold2)}
+  .btn.gold:active{box-shadow:0 3px 0 var(--gold2)}
+  .btn.sub{background:var(--card);color:var(--ink);border:1.5px solid var(--line);
+    box-shadow:none;font-size:15px;padding:13px;font-weight:600}
+  .btn.sub:active{transform:translateY(1px)}
+  .btn.back{background:linear-gradient(180deg,#f3a961,var(--orange));color:#fff;border:0;
+    box-shadow:0 5px 0 #c87a30;font-weight:700}
+  .btn.back:active{transform:translateY(3px);box-shadow:0 2px 0 #c87a30}
+  .row{display:flex;gap:10px}
+  .row .btn{margin:8px 0}
+  .link-btn{background:none;border:0;color:var(--sub);font-size:13px;text-decoration:underline;
+    cursor:pointer;font-family:inherit;display:block;margin:6px auto 0}
+
+  .prev{display:flex;align-items:center;gap:12px;background:var(--card);border:1.5px solid var(--gold-soft);
+    border-radius:16px;padding:10px 14px;margin-top:12px}
+  .prev img{width:46px;height:46px;border-radius:50%;background:var(--bg2)}
+  .prev b{display:block;font-size:14px}
+  .prev span{font-size:12px;color:var(--sub)}
+
+  /* ---- 質問 ---- */
+  .prog{display:flex;align-items:center;gap:10px;margin:6px 0 12px}
+  .prog .bar{flex:1;height:8px;background:var(--bg2);border-radius:4px;overflow:hidden}
+  .prog .bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--green),var(--gold));transition:width .35s}
+  .prog b{font-size:13px;color:var(--sub);min-width:44px;text-align:right}
+  .ask{display:flex;gap:12px;align-items:flex-start}
+  .ask img{width:64px;height:64px;flex:0 0 auto;border-radius:50%;background:var(--card);border:2px solid var(--gold-soft)}
+  .bubble{position:relative;background:var(--card);border:1.5px solid var(--line);border-radius:18px;padding:14px 16px;
+    box-shadow:var(--shadow);flex:1}
+  .bubble::before{content:"";position:absolute;left:-9px;top:22px;border:8px solid transparent;border-right-color:var(--line);border-left:0}
+  .bubble::after{content:"";position:absolute;left:-7px;top:23px;border:7px solid transparent;border-right-color:var(--card);border-left:0}
+  .bubble .q{font-size:17px;font-weight:700;margin:0;line-height:1.55}
+  .bubble .s{font-size:12px;color:var(--sub);margin:6px 0 0}
+  .ans{display:flex;flex-direction:column;gap:9px;margin-top:16px}
+  .ans button{border:1.5px solid var(--line);background:var(--card);border-radius:16px;padding:14px 16px;
+    font-size:15px;font-family:inherit;color:var(--ink);text-align:left;cursor:pointer;line-height:1.5;
+    box-shadow:0 3px 10px rgba(120,100,70,.07);transition:transform .08s}
+  .ans button:active{transform:scale(.98);border-color:var(--gold)}
+  .ans button.picked{border-color:var(--gold);background:#fffaea}
+
+  /* ---- 結果 ---- */
+  .hero{position:relative;text-align:center;padding-top:10px}
+  .ring{width:210px;height:210px;margin:0 auto;border-radius:50%;display:flex;align-items:center;justify-content:center;
+    background:radial-gradient(circle at 50% 40%, #fff 0%, var(--tint,#f3ead9) 70%);
+    border:4px solid var(--gold);box-shadow:0 0 0 8px var(--gold-soft), var(--shadow)}
+  .ring img{width:170px;height:170px}
+  .ring.pop{animation:pop .7s cubic-bezier(.2,1.4,.4,1) both}
+  @keyframes pop{from{opacity:0;transform:scale(.6)}to{opacity:1;transform:none}}
+  .badge{display:inline-block;background:var(--gold);color:#fff;font-size:12px;letter-spacing:.14em;
+    border-radius:999px;padding:3px 14px;margin-top:16px}
+  .tname{font-size:28px;font-weight:800;margin:6px 0 0;letter-spacing:.04em}
+  .ttitle{font-size:16px;color:var(--gold2);font-weight:700;margin:0}
+  .tgame{font-size:12px;color:var(--sub);margin:6px 0 0}
+  .tone{font-size:15px;margin:12px 0 0;font-weight:600}
+  .also{display:inline-block;margin-top:10px;background:var(--bg2);border-radius:999px;padding:5px 14px;font-size:13px}
+  .card{background:var(--card);border:1.5px solid var(--line);border-radius:18px;padding:16px 18px;margin-top:14px;box-shadow:0 3px 10px rgba(120,100,70,.07)}
+  .card h3{margin:0 0 4px;font-size:13px;letter-spacing:.1em;color:var(--gold2)}
+  .card p{margin:0;font-size:14.5px}
+  .card.mofu{display:flex;gap:12px;align-items:flex-start;background:#fffaea;border-color:var(--gold-soft)}
+  .card.mofu img{width:52px;height:52px;flex:0 0 auto}
+  .card.mofu p{font-size:14.5px}
+  h2.sec{font-size:15px;letter-spacing:.1em;color:var(--sub);margin:24px 0 8px;text-align:center}
+  h2.sec.cat{display:flex;align-items:center;gap:8px;justify-content:center}
+  h2.sec.cat::before,h2.sec.cat::after{content:"";height:2px;width:28px;border-radius:2px;background:currentColor;opacity:.35}
+  .links{display:flex;flex-direction:column;gap:8px}
+  .lk{display:flex;align-items:center;gap:12px;background:var(--card);border:1.5px solid var(--line);
+    border-radius:16px;padding:13px 15px;text-decoration:none;color:var(--ink);box-shadow:0 3px 10px rgba(120,100,70,.07)}
+  .lk:active{transform:translateY(1px)}
+  .lk .ico{font-size:22px;flex:0 0 auto}
+  .lk b{display:block;font-size:15px}
+  .lk .s{font-size:12px;color:var(--sub)}
+  .lk.c-play{background:linear-gradient(180deg,#fdfffd,#ebf5eb);border-color:#d3e8d3}
+  .lk.c-read{background:linear-gradient(180deg,#fdfeff,#e9f1fa);border-color:#d3e0f1}
+  .lk.c-mail{background:linear-gradient(180deg,#fefdff,#f1ecfa);border-color:#ded5f0}
+  .lk.c-book{background:linear-gradient(180deg,#fffdfa,#fdf2e0);border-color:#f0dfc0}
+  .lk.c-hill{background:linear-gradient(180deg,#fffdfd,#fbeaea);border-color:#f0d3d3}
+  .sec.c-play{color:#5f8a5f}.sec.c-read{color:#5e7fa8}.sec.c-mail{color:#7d6ba8}.sec.c-book{color:#b08544}.sec.c-hill{color:#b5706e}
+  .mikuji{display:block;text-align:center;font-size:14px;color:var(--ink);text-decoration:none;
+    background:#fff5f5;border:1.5px solid #f0d3d3;border-radius:999px;padding:11px;margin-top:14px}
+  .disc{font-size:11.5px;color:var(--sub);line-height:1.7;margin:22px 4px 0;text-align:left}
+  footer{text-align:center;font-size:12px;color:var(--sub);margin:26px 0 8px}
+  footer a{color:var(--sub)}
+
+  /* ---- 30秒解説 ---- */
+  .kcard{background:var(--card);border:1.5px solid var(--line);border-radius:20px;padding:18px;box-shadow:var(--shadow);margin-top:6px}
+  .kcat{display:inline-block;font-size:11px;letter-spacing:.1em;color:var(--gold2);background:var(--gold-soft);border-radius:999px;padding:2px 10px}
+  .ktitle{font-size:20px;font-weight:800;margin:10px 0 8px;line-height:1.45}
+  .kbody{font-size:15px;margin:0}
+  .kdate{font-size:12px;color:var(--sub);margin:12px 0 0;text-align:right}
+  .stamp{position:absolute;right:14px;top:14px;width:64px;height:64px;border-radius:50%;border:3px solid var(--gold);
+    color:var(--gold);font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;
+    transform:rotate(-14deg);opacity:0;pointer-events:none;background:rgba(255,255,255,.7)}
+  .stamp.on{animation:stamp .5s cubic-bezier(.2,1.5,.4,1) both}
+  @keyframes stamp{from{opacity:0;transform:rotate(-14deg) scale(2.2)}to{opacity:1;transform:rotate(-14deg) scale(1)}}
+  .kwrap{position:relative}
+  .stat{display:flex;gap:10px;margin-top:12px}
+  .stat div{flex:1;background:var(--card);border:1.5px solid var(--line);border-radius:14px;padding:10px 6px;text-align:center}
+  .stat b{display:block;font-size:22px;line-height:1.2;color:var(--gold2)}
+  .stat small{font-size:11px;color:var(--sub)}
+  .cal{background:var(--card);border:1.5px solid var(--line);border-radius:18px;padding:14px;margin-top:14px}
+  .cal .head{display:flex;justify-content:space-between;align-items:center;font-weight:700;margin-bottom:8px}
+  .cal .head button{border:0;background:none;font-size:20px;padding:4px 12px;cursor:pointer;color:var(--sub)}
+  .grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;text-align:center;font-size:12px}
+  .grid .w{color:var(--sub);font-size:11px;padding-bottom:2px}
+  .grid .w.sun{color:#c96a6a}.grid .w.sat{color:#6a8cc9}
+  .cell{padding:5px 0;border-radius:9px}
+  .cell .dot{width:9px;height:9px;border-radius:50%;margin:2px auto 0;background:var(--gold)}
+  .cell.today{outline:2px solid var(--green)}
+  .cell.has{cursor:pointer}
+  .arch{margin-top:8px}
+  .arch details{background:var(--card);border:1.5px solid var(--line);border-radius:14px;padding:10px 14px;margin-top:8px}
+  .arch summary{cursor:pointer;font-weight:700;font-size:14px;list-style:none}
+  .arch summary::-webkit-details-marker{display:none}
+  .arch summary .c{font-size:11px;color:var(--gold2);margin-right:6px}
+  .arch p{font-size:14px;margin:8px 0 0}
+
+  .mute{position:fixed;top:10px;right:10px;border:0;background:rgba(255,255,255,.75);
+    border-radius:50%;width:38px;height:38px;font-size:17px;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.08)}
+  canvas#fx{position:fixed;inset:0;pointer-events:none;z-index:50}
+
+  .modal{position:fixed;inset:0;background:rgba(70,58,46,.45);display:none;align-items:center;justify-content:center;z-index:60;padding:22px}
+  .modal.on{display:flex}
+  .modal .box{background:var(--card);border-radius:22px;padding:18px;width:100%;max-width:340px;box-shadow:var(--shadow);max-height:90vh;overflow:auto}
+  .modal h3{margin:0 0 8px;font-size:17px;text-align:center}
+  .modal p{font-size:14px;margin:0 0 8px}
+  .shot{width:100%;border-radius:16px;display:block;box-shadow:var(--shadow)}
+  .hint{font-size:12px;color:var(--sub);margin:10px 0 2px;text-align:center}
+</style>
+</head>
+<body>
+<button class="mute" id="mute" aria-label="音">🔔</button>
+<canvas id="fx"></canvas>
+<div class="wrap">
+  <header>
+    <h1>お金の<span class="g">クセ</span>診断</h1>
+    <p>あなたに似ている、丘の住民は？</p>
+  </header>
+
+  <!-- トップ -->
+  <section class="screen on" id="s-title">
+    <img class="photo" src="assets/title.jpg" alt="丘の住民たち">
+    <div class="prev" id="prevBox" style="display:none">
+      <img id="prevImg" alt=""><div><b id="prevName"></b><span>前回の結果です。タップで見る</span></div>
+    </div>
+    <button class="btn" id="startBtn">診断する（10問・約2分）</button>
+    <button class="btn gold" data-go="s-kaisetsu">📖 今日の30秒解説</button>
+    <button class="btn sub" data-go="s-annai">💰 お金の案内所</button>
+    <button class="link-btn" id="aboutBtn">この診断について</button>
+  </section>
+
+  <!-- 質問 -->
+  <section class="screen" id="s-quiz">
+    <div class="prog"><div class="bar"><i id="progBar"></i></div><b id="progNum">1 / 10</b></div>
+    <div class="ask">
+      <img src="assets/r-M.png" alt="モフ">
+      <div class="bubble"><p class="q" id="qText"></p><p class="s" id="qSub" style="display:none"></p></div>
+    </div>
+    <div class="ans" id="ansBox"></div>
+    <div class="row">
+      <button class="btn sub" id="qBack">← ひとつ前へ</button>
+      <button class="btn sub" data-go="s-title">やめる</button>
+    </div>
+  </section>
+
+  <!-- 結果 -->
+  <section class="screen" id="s-result">
+    <div class="hero">
+      <div class="ring" id="ring"><img id="resImg" alt=""></div>
+      <div class="badge">あなたに似ている住民は</div>
+      <p class="tname" id="resName"></p>
+      <p class="ttitle" id="resTitle"></p>
+      <p class="tgame" id="resGame"></p>
+      <p class="tone" id="resOne"></p>
+      <div class="also" id="resAlso" style="display:none"></div>
+    </div>
+    <div class="card"><h3>お金のクセ</h3><p id="resKuse"></p></div>
+    <div class="card"><h3>強み</h3><p id="resTsuyomi"></p></div>
+    <div class="card"><h3>気をつけたいクセ</h3><p id="resChui"></p></div>
+    <div class="card mofu"><img src="assets/r-M.png" alt="モフ"><div><h3>モフから</h3><p id="resMofu"></p></div></div>
+
+    <h2 class="sec">このタイプのあなたに、こんな遊びと読みもの</h2>
+    <div class="links" id="recBox"></div>
+    <a class="mikuji" href="https://rincanvas-hash.github.io/mofu-mikuji/" target="_blank" rel="noopener">🐶 モフのおみくじも引いてみる</a>
+
+    <button class="btn" id="shareBtn">この結果をシェアする</button>
+    <div class="row">
+      <button class="btn sub" id="retryBtn">もう一度診断する</button>
+      <button class="btn sub" data-go="s-annai">💰 お金の案内所</button>
+    </div>
+    <button class="btn back" data-go="s-title">← トップへ</button>
+    <p class="disc" id="discResult"></p>
+  </section>
+
+  <!-- 30秒解説 -->
+  <section class="screen" id="s-kaisetsu">
+    <h2 class="sec">📖 今日の30秒解説</h2>
+    <div class="kwrap">
+      <div class="kcard">
+        <span class="kcat" id="kCat"></span>
+        <p class="ktitle" id="kTitle"></p>
+        <p class="kbody" id="kBody"></p>
+        <p class="kdate" id="kDate"></p>
+      </div>
+      <div class="stamp" id="kStamp">読んだ！</div>
+    </div>
+    <button class="btn gold" id="readBtn">読んだ！</button>
+    <div class="stat">
+      <div><b id="stTotal">0</b><small>ぜんぶで</small></div>
+      <div><b id="stMonth">0</b><small>今月</small></div>
+      <div><b id="stStreak">0</b><small>つづけて</small></div>
+    </div>
+    <div class="cal">
+      <div class="head"><button id="prevM">◀</button><span id="calTitle"></span><button id="nextM">▶</button></div>
+      <div class="grid" id="calGrid"></div>
+    </div>
+    <p class="hint">金の丸は、解説を読んだ日。タップすると、その日の解説をもう一度読めます</p>
+    <h2 class="sec">これまでに読んだ解説</h2>
+    <div class="arch" id="archBox"><p class="hint">まだありません。「読んだ！」を押すと、ここにたまっていきます</p></div>
+    <button class="btn back" data-go="s-title">← トップへ</button>
+  </section>
+
+  <!-- 案内所 -->
+  <section class="screen" id="s-annai">
+    <h2 class="sec">💰 お金の案内所</h2>
+    <div class="links" id="linkList"></div>
+    <footer>
+      ほかの作品（絵本・塗り絵・アプリ）は<br>
+      <a href="https://rincanvas-hash.github.io/ayaha-site/" target="_blank" rel="noopener">彩葉りん公式サイト</a> にまとめています
+    </footer>
+    <button class="btn back" data-go="s-title">← トップへ</button>
+  </section>
+</div>
+
+<!-- この診断について -->
+<div class="modal" id="aboutModal">
+  <div class="box">
+    <h3>この診断について</h3>
+    <div id="aboutText"></div>
+    <p style="font-size:12px;color:var(--sub)">結果と「読んだ」記録は、この端末の中にだけ保存されます。</p>
+    <button class="btn back" id="aboutClose">とじる</button>
+  </div>
+</div>
+
+<!-- 画像シェア -->
+<div class="modal" id="shotModal">
+  <div class="box">
+    <img class="shot" id="shotImg" alt="診断結果">
+    <p class="hint">画像を長押しすると保存できます</p>
+    <a class="btn back" id="shotSave" download="okane-kuse.png">画像を保存する</a>
+    <button class="btn sub" id="shotX">Xに投稿する</button>
+    <button class="btn sub" id="shotClose">とじる</button>
+  </div>
+</div>
+
+<!-- 過去の解説 -->
+<div class="modal" id="kModal">
+  <div class="box">
+    <span class="kcat" id="mCat"></span>
+    <p class="ktitle" id="mTitle"></p>
+    <p class="kbody" id="mBody"></p>
+    <p class="kdate" id="mDate"></p>
+    <button class="btn back" id="kClose">とじる</button>
+  </div>
+</div>
+
+<script src="assets/shindan.js"></script>
+<script src="assets/kaisetsu.js"></script>
+<script>
+(function(){
+  "use strict";
+  var KEY="okanekuse", store=load();
+  function load(){ try{ return JSON.parse(localStorage.getItem(KEY)||"{}"); }catch(e){ return {}; } }
+  function save(){ try{ localStorage.setItem(KEY,JSON.stringify(store)); }catch(e){} }
+  store.read = store.read || {};      // 日付 → 解説の番号
+  function key(d){ return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0"); }
+  function todayKey(){ return key(new Date()); }
+  function $(id){ return document.getElementById(id); }
+
+  /* ---- 音 ---- */
+  var muted=store.mute===1, actx=null;
+  function ac(){ if(!actx){ var C=window.AudioContext||window.webkitAudioContext; if(C) actx=new C(); }
+    if(actx&&actx.state==="suspended") actx.resume(); return actx; }
+  function tone(f,dur,vol,type,delay){
+    if(muted) return; var c=ac(); if(!c) return;
+    var o=c.createOscillator(), g=c.createGain(), t=c.currentTime+(delay||0);
+    o.type=type||"sine"; o.frequency.value=f;
+    g.gain.setValueAtTime(0.0001,t); g.gain.exponentialRampToValueAtTime(vol,t+0.02);
+    g.gain.exponentialRampToValueAtTime(0.0001,t+dur);
+    o.connect(g); g.connect(c.destination); o.start(t); o.stop(t+dur+0.05);
+  }
+  function tick(){ tone(880,0.12,0.08,"triangle"); }
+  function chime(){ [523.25,659.25,783.99,1046.5].forEach(function(f,i){ tone(f,0.7,0.16,"sine",i*0.09); }); }
+  function stampSound(){ tone(196,0.18,0.2,"square"); tone(392,0.25,0.12,"triangle",0.06); }
+  var muteBtn=$("mute"); muteBtn.textContent=muted?"🔕":"🔔";
+  muteBtn.onclick=function(){ muted=!muted; store.mute=muted?1:0; save(); muteBtn.textContent=muted?"🔕":"🔔"; if(!muted) tick(); };
+
+  /* ---- 画面 ---- */
+  function show(id){
+    var list=document.querySelectorAll(".screen");
+    for(var i=0;i<list.length;i++) list[i].classList.toggle("on", list[i].id===id);
+    if(id==="s-kaisetsu") renderKaisetsu();
+    if(id==="s-title") renderTitle();
+    window.scrollTo(0,0);
+  }
+  var gos=document.querySelectorAll("[data-go]");
+  for(var gi=0;gi<gos.length;gi++){ (function(b){ b.onclick=function(){ show(b.getAttribute("data-go")); }; })(gos[gi]); }
+
+  /* ---- この診断について ---- */
+  $("aboutText").innerHTML=DISCLAIMER.map(function(t){ return "<p>"+t+"</p>"; }).join("");
+  $("discResult").textContent=DISCLAIMER.join(" ");
+  $("aboutBtn").onclick=function(){ $("aboutModal").classList.add("on"); };
+  $("aboutClose").onclick=function(){ $("aboutModal").classList.remove("on"); };
+
+  /* ---- トップ ---- */
+  function renderTitle(){
+    var r=store.result;
+    $("prevBox").style.display = r ? "flex" : "none";
+    if(r){ $("prevImg").src="assets/r-"+r.main+".png"; $("prevName").textContent=TYPES[r.main].emoji+" "+TYPES[r.main].name+" ─ "+TYPES[r.main].title; }
+  }
+  $("prevBox").onclick=function(){ if(store.result) renderResult(store.result,false); };
+
+  /* ---- 診断 ---- */
+  var answers=[], qi=0;
+  $("startBtn").onclick=function(){ ac(); answers=[]; qi=0; showQ(); show("s-quiz"); };
+  $("retryBtn").onclick=function(){ answers=[]; qi=0; showQ(); show("s-quiz"); };
+  function showQ(){
+    var q=QUESTIONS[qi];
+    $("progBar").style.width=((qi)/QUESTIONS.length*100)+"%";
+    $("progNum").textContent=(qi+1)+" / "+QUESTIONS.length;
+    $("qText").textContent="Q"+(qi+1)+". "+q.q;
+    $("qSub").style.display=q.sub?"block":"none"; $("qSub").textContent=q.sub||"";
+    var box=$("ansBox"); box.innerHTML="";
+    q.a.forEach(function(a,i){
+      var b=document.createElement("button"); b.textContent=a.t;
+      if(answers[qi]===i) b.className="picked";
+      b.onclick=function(){ pick(i,b); };
+      box.appendChild(b);
+    });
+    $("qBack").style.visibility = qi>0 ? "visible" : "hidden";
+    window.scrollTo(0,0);
+  }
+  var busy=false;
+  function pick(i,btn){
+    if(busy) return; busy=true;
+    answers[qi]=i; btn.className="picked"; tick();
+    setTimeout(function(){
+      busy=false;
+      if(qi<QUESTIONS.length-1){ qi++; showQ(); }
+      else finish();
+    }, 260);
+  }
+  $("qBack").onclick=function(){ if(qi>0){ qi--; showQ(); } };
+
+  function score(ans){
+    var sc={G:0,L:0,S:0,K:0,T:0,B:0};
+    ans.forEach(function(a,i){ var s=QUESTIONS[i].a[a].s; for(var k in s) sc[k]+=s[k]; });
+    var top=Math.max.apply(null, Object.keys(sc).map(function(k){ return sc[k]; }));
+    var tops=PRI.filter(function(k){ return sc[k]===top; });
+    return { main:tops[0], also:tops[1]||null, sc:sc };
+  }
+  function finish(){
+    var r=score(answers); r.date=todayKey();
+    store.result=r; save();
+    renderResult(r,true);
+  }
+  function renderResult(r,fresh){
+    var t=TYPES[r.main];
+    var ring=$("ring"); ring.style.setProperty("--tint",t.color);
+    ring.classList.remove("pop"); void ring.offsetWidth; ring.classList.add("pop");
+    $("resImg").src="assets/r-"+r.main+".png";
+    $("resName").textContent=t.emoji+" "+t.name;
+    $("resTitle").textContent=t.title;
+    $("resGame").textContent="投資人生ゲームでいうと：「"+t.game+"」";
+    $("resOne").textContent=t.one;
+    if(r.also){ $("resAlso").style.display="inline-block"; $("resAlso").textContent=TYPES[r.also].emoji+" "+TYPES[r.also].name+"の一面もあります"; }
+    else $("resAlso").style.display="none";
+    $("resKuse").textContent=t.kuse; $("resTsuyomi").textContent=t.tsuyomi;
+    $("resChui").textContent=t.chui; $("resMofu").textContent="「"+t.mofu+"」";
+    var rec=$("recBox"); rec.innerHTML="";
+    [["🎮","あそぶ",t.play,"c-play"],["📖","よむ",t.read,"c-read"]].forEach(function(x){
+      var a=document.createElement("a"); a.className="lk "+x[3]; a.href=x[2].u; a.target="_blank"; a.rel="noopener";
+      var ico=document.createElement("span"); ico.className="ico"; ico.textContent=x[0];
+      var box=document.createElement("span"); var b=document.createElement("b"); b.textContent=x[1]+"：" + x[2].t;
+      var s=document.createElement("span"); s.className="s"; s.textContent=x[2].s;
+      box.appendChild(b); box.appendChild(s); a.appendChild(ico); a.appendChild(box); rec.appendChild(a);
+    });
+    show("s-result");
+    if(fresh){ chime(); confetti(t.color); }
+  }
+
+  /* ---- 紙吹雪 ---- */
+  function confetti(hex){
+    var cv=$("fx"), ctx=cv.getContext("2d");
+    cv.width=window.innerWidth; cv.height=window.innerHeight;
+    var cols=[hex,"#d9a93c","#f6e7bd","#a8d08d","#ffffff"], ps=[];
+    for(var i=0;i<70;i++) ps.push({x:Math.random()*cv.width,y:-20-Math.random()*cv.height*0.5,w:6+Math.random()*7,h:8+Math.random()*9,
+      vy:1.6+Math.random()*2.4,vx:-1+Math.random()*2,a:Math.random()*6.3,va:-0.12+Math.random()*0.24,c:cols[i%cols.length]});
+    var t0=performance.now();
+    (function loop(t){
+      ctx.clearRect(0,0,cv.width,cv.height);
+      for(var i=0;i<ps.length;i++){ var p=ps[i]; p.x+=p.vx; p.y+=p.vy; p.a+=p.va;
+        ctx.save(); ctx.translate(p.x,p.y); ctx.rotate(p.a); ctx.fillStyle=p.c; ctx.fillRect(-p.w/2,-p.h/2,p.w,p.h); ctx.restore(); }
+      if(t-t0<3400) requestAnimationFrame(loop); else ctx.clearRect(0,0,cv.width,cv.height);
+    })(t0);
+  }
+
+  /* ---- 結果を1枚の画像に ---- */
+  var FONT='"Hiragino Maru Gothic ProN","Hiragino Sans","Yu Gothic UI","Meiryo",sans-serif';
+  function wrap(ctx,text,maxW){
+    var lines=[],line="";
+    for(var i=0;i<text.length;i++){ var ch=text.charAt(i);
+      if(ctx.measureText(line+ch).width>maxW){ lines.push(line); line=ch; } else line+=ch; }
+    if(line) lines.push(line); return lines;
+  }
+  function rrect(x,a,b,w,h,r){ x.beginPath(); if(x.roundRect) x.roundRect(a,b,w,h,r); else x.rect(a,b,w,h); }
+  function buildCard(r){
+    return new Promise(function(resolve){
+      var t=TYPES[r.main], W=1080, H=1350, cv=document.createElement("canvas"); cv.width=W; cv.height=H;
+      var x=cv.getContext("2d"), done=false;
+      function out(v){ if(!done){ done=true; resolve(v); } }
+      setTimeout(function(){ out(null); }, 5000);
+      var im=new Image();
+      im.onload=function(){
+        try{
+          var bg=x.createLinearGradient(0,0,0,H); bg.addColorStop(0,"#fdf8ef"); bg.addColorStop(1,"#f3ead9");
+          x.fillStyle=bg; x.fillRect(0,0,W,H);
+          x.textAlign="center"; x.fillStyle="#8a7b6c"; x.font="bold 34px "+FONT;
+          x.fillText("お金のクセ診断", W/2, 90);
+          x.fillStyle="#b8892a"; x.font="26px "+FONT; x.fillText("あなたに似ている、丘の住民は？", W/2, 138);
+          /* 輪 */
+          var cx=W/2, cy=470, R=250;
+          var rg=x.createRadialGradient(cx,cy-60,20,cx,cy,R); rg.addColorStop(0,"#ffffff"); rg.addColorStop(1,t.color);
+          x.beginPath(); x.arc(cx,cy,R+22,0,Math.PI*2); x.fillStyle="#f6e7bd"; x.fill();
+          x.beginPath(); x.arc(cx,cy,R,0,Math.PI*2); x.fillStyle=rg; x.fill();
+          x.lineWidth=10; x.strokeStyle="#d9a93c"; x.stroke();
+          x.drawImage(im, cx-200, cy-200, 400, 400);
+          /* 札 */
+          var py=790, ph=H-py-60;
+          x.save(); x.shadowColor="rgba(120,100,70,.18)"; x.shadowBlur=26; x.shadowOffsetY=8;
+          x.fillStyle="#fffdf8"; rrect(x,60,py,W-120,ph,40); x.fill(); x.restore();
+          x.strokeStyle="#d9a93c"; x.lineWidth=4; rrect(x,60,py,W-120,ph,40); x.stroke();
+          x.fillStyle="#4a4038"; x.font="bold 78px "+FONT; x.fillText(t.emoji+" "+t.name, W/2, py+120);
+          x.fillStyle="#b8892a"; x.font="bold 40px "+FONT; x.fillText(t.title, W/2, py+185);
+          x.fillStyle="#4a4038"; x.font="36px "+FONT;
+          var ls=wrap(x,t.one,W-240), ty=py+265; for(var i=0;i<ls.length&&i<3;i++){ x.fillText(ls[i],W/2,ty); ty+=52; }
+          if(r.also){ x.fillStyle="#8a7b6c"; x.font="28px "+FONT; x.fillText(TYPES[r.also].emoji+" "+TYPES[r.also].name+"の一面もあります", W/2, py+ph-60); }
+          x.fillStyle="#8a7b6c"; x.font="26px "+FONT; x.fillText("お金のクセ診断 ｜ もふもふの丘", W/2, H-22);
+          var durl=cv.toDataURL("image/png");
+          cv.toBlob(function(b){ out({blob:b,url:durl}); },"image/png");
+        }catch(e){ out(null); }
+      };
+      im.onerror=function(){ out(null); };
+      im.src="assets/r-"+r.main+".png";
+    });
+  }
+  var shotModal=$("shotModal");
+  $("shotClose").onclick=function(){ shotModal.classList.remove("on"); };
+  shotModal.onclick=function(e){ if(e.target===shotModal) shotModal.classList.remove("on"); };
+  function shareText(r){
+    var t=TYPES[r.main], NL=String.fromCharCode(10);
+    return "お金のクセ診断の結果は…"+t.emoji+t.name+"「"+t.title+"」"+NL+t.one+NL+"#お金のクセ診断 #もふもふの丘";
+  }
+  var shareBtn=$("shareBtn");
+  shareBtn.onclick=function(){
+    var r=store.result; if(!r) return;
+    var text=shareText(r), url=location.href.split("#")[0].split("?")[0];
+    shareBtn.disabled=true; shareBtn.textContent="画像をつくっています…";
+    buildCard(r).catch(function(){ return null; }).then(function(card){
+      shareBtn.disabled=false; shareBtn.textContent="この結果をシェアする";
+      if(!card){
+        if(navigator.share) navigator.share({text:text,url:url}).catch(function(){});
+        else window.open("https://twitter.com/intent/tweet?text="+encodeURIComponent(text)+"&url="+encodeURIComponent(url),"_blank");
+        return;
+      }
+      var file=null; try{ file=new File([card.blob],"okane-kuse.png",{type:"image/png"}); }catch(e){}
+      if(file && navigator.canShare && navigator.canShare({files:[file]})){
+        navigator.share({files:[file], text:text+String.fromCharCode(10)+url}).catch(function(){});
+      }else{
+        $("shotImg").src=card.url; $("shotSave").href=card.url;
+        $("shotX").onclick=function(){ window.open("https://twitter.com/intent/tweet?text="+encodeURIComponent(text)+"&url="+encodeURIComponent(url),"_blank"); };
+        shotModal.classList.add("on");
+      }
+    });
+  };
+
+  /* ---- 今日の30秒解説 ---- */
+  store.pick = store.pick || {};       // 日付 → その日に出した解説の番号
+  function pickToday(){
+    var tk=todayKey();
+    if(store.pick[tk]!==undefined) return store.pick[tk];
+    var readIdx=Object.keys(store.read).map(function(k){ return store.read[k]; });
+    var recent=Object.keys(store.pick).sort().slice(-10).map(function(k){ return store.pick[k]; });
+    var pool=[];
+    for(var i=0;i<KAISETSU.length;i++) if(readIdx.indexOf(i)<0 && recent.indexOf(i)<0) pool.push(i);
+    if(!pool.length){ for(var j=0;j<KAISETSU.length;j++) if(recent.indexOf(j)<0) pool.push(j); }   /* 全部読んだら2周目 */
+    if(!pool.length) pool=KAISETSU.map(function(_,k){ return k; });
+    var idx=pool[Math.floor(Math.random()*pool.length)];
+    store.pick[tk]=idx; save(); return idx;
+  }
+  var calMonth=new Date();
+  function fmt(k){ var p=k.split("-"); return (+p[1])+"月"+(+p[2])+"日"; }
+  function renderKaisetsu(){
+    var tk=todayKey(), idx=pickToday(), k=KAISETSU[idx];
+    $("kCat").textContent=k.cat; $("kTitle").textContent=k.title; $("kBody").textContent=k.body;
+    $("kDate").textContent=fmt(tk)+"の解説";
+    var done=store.read[tk]!==undefined;
+    $("kStamp").className="stamp"+(done?" on":""); $("readBtn").style.display=done?"none":"block";
+    drawCal(); drawArch();
+  }
+  $("readBtn").onclick=function(){
+    var tk=todayKey(); if(store.read[tk]!==undefined) return;
+    store.read[tk]=store.pick[tk]; save(); ac(); stampSound();
+    $("kStamp").classList.add("on"); $("readBtn").style.display="none";
+    drawCal(); drawArch();
+  };
+  var WD=["日","月","火","水","木","金","土"];
+  function drawCal(){
+    var y=calMonth.getFullYear(), m=calMonth.getMonth();
+    $("calTitle").textContent=y+"年"+(m+1)+"月";
+    var g=$("calGrid"); g.innerHTML="";
+    for(var w=0;w<7;w++){ var e=document.createElement("div"); e.className="w"+(w===0?" sun":w===6?" sat":""); e.textContent=WD[w]; g.appendChild(e); }
+    var first=new Date(y,m,1).getDay(), last=new Date(y,m+1,0).getDate(), tk=todayKey();
+    for(var i=0;i<first;i++) g.appendChild(document.createElement("div"));
+    for(var d=1;d<=last;d++){
+      var kk=key(new Date(y,m,d)), cell=document.createElement("div");
+      cell.className="cell"+(kk===tk?" today":"");
+      var num=document.createElement("span"); num.textContent=d; cell.appendChild(num);
+      if(store.read[kk]!==undefined){
+        var dot=document.createElement("div"); dot.className="dot"; cell.appendChild(dot); cell.className+=" has";
+        (function(k2){ cell.onclick=function(){ openK(k2); }; })(kk);
+      }
+      g.appendChild(cell);
+    }
+    var ks=Object.keys(store.read), month=0;
+    ks.forEach(function(k){ var p=k.split("-"); if(+p[0]===y && +p[1]===m+1) month++; });
+    var streak=0, dd=new Date(); if(store.read[key(dd)]===undefined) dd.setDate(dd.getDate()-1);
+    while(store.read[key(dd)]!==undefined){ streak++; dd.setDate(dd.getDate()-1); }
+    $("stTotal").textContent=ks.length; $("stMonth").textContent=month; $("stStreak").textContent=streak;
+  }
+  $("prevM").onclick=function(){ calMonth.setMonth(calMonth.getMonth()-1); drawCal(); };
+  $("nextM").onclick=function(){ calMonth.setMonth(calMonth.getMonth()+1); drawCal(); };
+  function drawArch(){
+    var ks=Object.keys(store.read).sort().reverse(), box=$("archBox"); box.innerHTML="";
+    if(!ks.length){ box.innerHTML='<p class="hint">まだありません。「読んだ！」を押すと、ここにたまっていきます</p>'; return; }
+    ks.forEach(function(k){
+      var e=KAISETSU[store.read[k]]; if(!e) return;
+      var d=document.createElement("details");
+      var s=document.createElement("summary"); var c=document.createElement("span"); c.className="c"; c.textContent=e.cat;
+      s.appendChild(c); s.appendChild(document.createTextNode(e.title));
+      var p=document.createElement("p"); p.textContent=e.body;
+      var dt=document.createElement("p"); dt.className="kdate"; dt.textContent=fmt(k);
+      d.appendChild(s); d.appendChild(p); d.appendChild(dt); box.appendChild(d);
+    });
+  }
+  function openK(k){
+    var e=KAISETSU[store.read[k]]; if(!e) return;
+    $("mCat").textContent=e.cat; $("mTitle").textContent=e.title; $("mBody").textContent=e.body; $("mDate").textContent=fmt(k)+"に読んだ解説";
+    $("kModal").classList.add("on");
+  }
+  $("kClose").onclick=function(){ $("kModal").classList.remove("on"); };
+  $("kModal").onclick=function(e){ if(e.target===$("kModal")) $("kModal").classList.remove("on"); };
+
+  /* ---- 案内所 ---- */
+  var list=$("linkList"), cur="play";
+  LINKS.forEach(function(l){
+    if(l.g){ cur=l.c; var h=document.createElement("h2"); h.className="sec cat c-"+l.c; h.textContent=l.g; list.appendChild(h); return; }
+    var a=document.createElement("a"); a.className="lk c-"+cur; a.href=l.u; a.target="_blank"; a.rel="noopener";
+    var ico=document.createElement("span"); ico.className="ico"; ico.textContent=l.i;
+    var box=document.createElement("span"); var b=document.createElement("b"); b.textContent=l.t;
+    var s=document.createElement("span"); s.className="s"; s.textContent=l.s;
+    box.appendChild(b); box.appendChild(s); a.appendChild(ico); a.appendChild(box); list.appendChild(a);
+  });
+
+  /* ---- 起動 ---- */
+  renderTitle();
+  if("serviceWorker" in navigator && location.protocol.indexOf("http")===0){
+    window.addEventListener("load", function(){ navigator.serviceWorker.register("sw.js").catch(function(){}); });
+  }
+  window.__app={ store:store, show:show, score:score, TYPES:TYPES, QUESTIONS:QUESTIONS, KAISETSU:KAISETSU,
+    answer:function(arr){ answers=arr.slice(); qi=arr.length-1; finish(); },
+    force:function(main,also){ var r={main:main,also:also||null,date:todayKey()}; store.result=r; save(); renderResult(r,true); },
+    reset:function(){ localStorage.removeItem(KEY); location.reload(); } };
+})();
+</script>
+</body>
+</html>

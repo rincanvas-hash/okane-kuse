@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>お金のクセ診断｜あなたに似ている丘の住民は？</title>
-<meta name="description" content="10問・約2分。ふだんの行動から、お金との付き合い方のクセを楽しく振り返る診断。毎日1本の30秒解説つき。">
+<meta name="description" content="10問・約2分。ふだんの行動から、お金との付き合い方のクセを楽しく振り返る診断。「30秒でわかる お金のことば」を1日ひとつ。">
 <link rel="icon" href="assets/favicon-32.png">
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#fdf8ef">
@@ -61,17 +61,25 @@
   .link-btn{background:none;border:0;color:var(--sub);font-size:13px;text-decoration:underline;
     cursor:pointer;font-family:inherit;display:block;margin:6px auto 0}
 
-  .prev{display:flex;align-items:center;gap:12px;background:var(--card);border:1.5px solid var(--gold-soft);
-    border-radius:16px;padding:10px 14px;margin-top:12px}
-  .prev img{width:46px;height:46px;border-radius:50%;background:var(--bg2)}
-  .prev b{display:block;font-size:14px}
-  .prev span{font-size:12px;color:var(--sub)}
+  /* ---- 診断メニュー ---- */
+  .ed{display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:var(--card);
+    border:1.5px solid var(--line);border-radius:18px;padding:13px 15px;margin-top:10px;cursor:pointer;
+    font-family:inherit;color:var(--ink);box-shadow:0 3px 10px rgba(120,100,70,.07)}
+  .ed:active{transform:translateY(1px)}
+  .ed .em{font-size:28px;flex:0 0 auto}
+  .ed b{display:block;font-size:16px}
+  .ed .s{font-size:12px;color:var(--sub)}
+  .ed .done{margin-left:auto;flex:0 0 auto;display:flex;align-items:center;gap:6px;font-size:12px;color:var(--sub)}
+  .ed .done img{width:38px;height:38px;border-radius:50%;background:var(--bg2);border:2px solid var(--gold-soft)}
+  .ed.new{border-color:var(--gold);background:linear-gradient(180deg,#fffdf6,#fff6dd)}
+  .ed .tag{font-size:10px;background:var(--gold);color:#fff;border-radius:999px;padding:1px 8px;margin-left:6px;vertical-align:middle}
 
   /* ---- 質問 ---- */
   .prog{display:flex;align-items:center;gap:10px;margin:6px 0 12px}
   .prog .bar{flex:1;height:8px;background:var(--bg2);border-radius:4px;overflow:hidden}
   .prog .bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--green),var(--gold));transition:width .35s}
   .prog b{font-size:13px;color:var(--sub);min-width:44px;text-align:right}
+  .prog .ed-name{font-size:12px;color:var(--gold2);font-weight:700}
   .ask{display:flex;gap:12px;align-items:flex-start}
   .ask img{width:64px;height:64px;flex:0 0 auto;border-radius:50%;background:var(--card);border:2px solid var(--gold-soft)}
   .bubble{position:relative;background:var(--card);border:1.5px solid var(--line);border-radius:18px;padding:14px 16px;
@@ -105,6 +113,14 @@
   .card{background:var(--card);border:1.5px solid var(--line);border-radius:18px;padding:16px 18px;margin-top:14px;box-shadow:0 3px 10px rgba(120,100,70,.07)}
   .card h3{margin:0 0 4px;font-size:13px;letter-spacing:.1em;color:var(--gold2)}
   .card p{margin:0;font-size:14.5px}
+  .card.kuse{border:2px solid var(--gold);background:linear-gradient(180deg,#fffdf6,#fff4d6);
+    box-shadow:0 10px 26px rgba(217,169,60,.22);padding:18px 20px;margin-top:18px}
+  .card.kuse h3{font-size:14px;color:var(--gold2)}
+  .card.kuse p{font-size:16.5px;font-weight:600;line-height:1.75}
+  .card.pair{padding:14px 18px;background:rgba(255,253,248,.7)}
+  .card.pair .sec2+.sec2{border-top:1px dashed var(--line);margin-top:10px;padding-top:10px}
+  .card.pair h3{font-size:12px;color:var(--sub)}
+  .card.pair p{font-size:13.5px;color:#5c5148}
   .card.mofu{display:flex;gap:12px;align-items:flex-start;background:#fffaea;border-color:var(--gold-soft)}
   .card.mofu img{width:52px;height:52px;flex:0 0 auto}
   .card.mofu p{font-size:14.5px}
@@ -126,11 +142,13 @@
   .sec.c-play{color:#5f8a5f}.sec.c-read{color:#5e7fa8}.sec.c-mail{color:#7d6ba8}.sec.c-book{color:#b08544}.sec.c-hill{color:#b5706e}
   .mikuji{display:block;text-align:center;font-size:14px;color:var(--ink);text-decoration:none;
     background:#fff5f5;border:1.5px solid #f0d3d3;border-radius:999px;padding:11px;margin-top:14px}
+  .next-ed{display:block;text-align:center;font-size:14px;color:var(--ink);background:linear-gradient(180deg,#fffdf6,#fff6dd);
+    border:1.5px solid var(--gold);border-radius:16px;padding:12px;margin-top:10px;cursor:pointer;font-family:inherit;width:100%}
   .disc{font-size:11.5px;color:var(--sub);line-height:1.7;margin:22px 4px 0;text-align:left}
   footer{text-align:center;font-size:12px;color:var(--sub);margin:26px 0 8px}
   footer a{color:var(--sub)}
 
-  /* ---- 30秒解説 ---- */
+  /* ---- お金のことば ---- */
   .kcard{background:var(--card);border:1.5px solid var(--line);border-radius:20px;padding:18px;box-shadow:var(--shadow);margin-top:6px}
   .kcat{display:inline-block;font-size:11px;letter-spacing:.1em;color:var(--gold2);background:var(--gold-soft);border-radius:999px;padding:2px 10px}
   .ktitle{font-size:20px;font-weight:800;margin:10px 0 8px;line-height:1.45}
@@ -142,6 +160,12 @@
   .stamp.on{animation:stamp .5s cubic-bezier(.2,1.5,.4,1) both}
   @keyframes stamp{from{opacity:0;transform:rotate(-14deg) scale(2.2)}to{opacity:1;transform:rotate(-14deg) scale(1)}}
   .kwrap{position:relative}
+  .coll{background:var(--card);border:1.5px solid var(--gold-soft);border-radius:16px;padding:12px 14px;margin-top:12px}
+  .coll .head{display:flex;justify-content:space-between;align-items:center;font-size:14px}
+  .coll .head span{color:var(--gold2);font-weight:700}
+  .coll .bar{height:10px;background:var(--bg2);border-radius:5px;overflow:hidden;margin-top:8px}
+  .coll .bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#e6bb55,var(--gold));transition:width .5s}
+  .coll p{margin:6px 0 0;font-size:12px;color:var(--sub)}
   .stat{display:flex;gap:10px;margin-top:12px}
   .stat div{flex:1;background:var(--card);border:1.5px solid var(--line);border-radius:14px;padding:10px 6px;text-align:center}
   .stat b{display:block;font-size:22px;line-height:1.2;color:var(--gold2)}
@@ -188,18 +212,16 @@
   <!-- トップ -->
   <section class="screen on" id="s-title">
     <img class="photo" src="assets/title.jpg" alt="丘の住民たち">
-    <div class="prev" id="prevBox" style="display:none">
-      <img id="prevImg" alt=""><div><b id="prevName"></b><span>前回の結果です。タップで見る</span></div>
-    </div>
-    <button class="btn" id="startBtn">診断する（10問・約2分）</button>
-    <button class="btn gold" data-go="s-kaisetsu">📖 今日の30秒解説</button>
+    <h2 class="sec" style="margin-top:16px">診断する（10問・約2分）</h2>
+    <div id="edList"></div>
+    <button class="btn gold" data-go="s-kaisetsu">📖 30秒でわかる お金のことば</button>
     <button class="btn sub" data-go="s-annai">💰 お金の案内所</button>
     <button class="link-btn" id="aboutBtn">この診断について</button>
   </section>
 
   <!-- 質問 -->
   <section class="screen" id="s-quiz">
-    <div class="prog"><div class="bar"><i id="progBar"></i></div><b id="progNum">1 / 10</b></div>
+    <div class="prog"><span class="ed-name" id="qEd"></span><div class="bar"><i id="progBar"></i></div><b id="progNum">1 / 10</b></div>
     <div class="ask">
       <img src="assets/r-M.png" alt="モフ">
       <div class="bubble"><p class="q" id="qText"></p><p class="s" id="qSub" style="display:none"></p></div>
@@ -215,20 +237,23 @@
   <section class="screen" id="s-result">
     <div class="hero">
       <div class="ring" id="ring"><img id="resImg" alt=""></div>
-      <div class="badge">あなたに似ている住民は</div>
+      <div class="badge" id="resBadge">あなたに似ている住民は</div>
       <p class="tname" id="resName"></p>
       <p class="ttitle" id="resTitle"></p>
       <p class="tgame" id="resGame"></p>
       <p class="tone" id="resOne"></p>
       <div class="also" id="resAlso" style="display:none"></div>
     </div>
-    <div class="card"><h3>お金のクセ</h3><p id="resKuse"></p></div>
-    <div class="card"><h3>強み</h3><p id="resTsuyomi"></p></div>
-    <div class="card"><h3>気をつけたいクセ</h3><p id="resChui"></p></div>
+    <div class="card kuse"><h3>✨ あなたのお金のクセ</h3><p id="resKuse"></p></div>
+    <div class="card pair">
+      <div class="sec2"><h3>💪 強み</h3><p id="resTsuyomi"></p></div>
+      <div class="sec2"><h3>👀 気をつけたいクセ</h3><p id="resChui"></p></div>
+    </div>
     <div class="card mofu"><img src="assets/r-M.png" alt="モフ"><div><h3>モフから</h3><p id="resMofu"></p></div></div>
 
     <h2 class="sec">このタイプのあなたに、こんな遊びと読みもの</h2>
     <div class="links" id="recBox"></div>
+    <button class="next-ed" id="nextEd" style="display:none"></button>
     <a class="mikuji" href="https://rincanvas-hash.github.io/mofu-mikuji/" target="_blank" rel="noopener">🐶 モフのおみくじも引いてみる</a>
 
     <button class="btn" id="shareBtn">この結果をシェアする</button>
@@ -240,9 +265,10 @@
     <p class="disc" id="discResult"></p>
   </section>
 
-  <!-- 30秒解説 -->
+  <!-- お金のことば -->
   <section class="screen" id="s-kaisetsu">
-    <h2 class="sec">📖 今日の30秒解説</h2>
+    <h2 class="sec">📖 30秒でわかる お金のことば</h2>
+    <p class="hint" style="margin:-4px 0 10px">ニュースで見かける言葉を、1日ひとつ</p>
     <div class="kwrap">
       <div class="kcard">
         <span class="kcat" id="kCat"></span>
@@ -252,7 +278,12 @@
       </div>
       <div class="stamp" id="kStamp">読んだ！</div>
     </div>
-    <button class="btn gold" id="readBtn">読んだ！</button>
+    <button class="btn gold" id="readBtn">読んだ！ことばをあつめる</button>
+    <div class="coll">
+      <div class="head"><b>ことばコレクション</b><span id="collNum">0 / 35</span></div>
+      <div class="bar"><i id="collBar"></i></div>
+      <p id="collMsg"></p>
+    </div>
     <div class="stat">
       <div><b id="stTotal">0</b><small>ぜんぶで</small></div>
       <div><b id="stMonth">0</b><small>今月</small></div>
@@ -262,8 +293,8 @@
       <div class="head"><button id="prevM">◀</button><span id="calTitle"></span><button id="nextM">▶</button></div>
       <div class="grid" id="calGrid"></div>
     </div>
-    <p class="hint">金の丸は、解説を読んだ日。タップすると、その日の解説をもう一度読めます</p>
-    <h2 class="sec">これまでに読んだ解説</h2>
+    <p class="hint">金の丸は、ことばを読んだ日。タップすると、その日のことばをもう一度読めます</p>
+    <h2 class="sec">あつめたことば</h2>
     <div class="arch" id="archBox"><p class="hint">まだありません。「読んだ！」を押すと、ここにたまっていきます</p></div>
     <button class="btn back" data-go="s-title">← トップへ</button>
   </section>
@@ -301,7 +332,7 @@
   </div>
 </div>
 
-<!-- 過去の解説 -->
+<!-- 過去のことば -->
 <div class="modal" id="kModal">
   <div class="box">
     <span class="kcat" id="mCat"></span>
@@ -312,18 +343,23 @@
   </div>
 </div>
 
-<script src="assets/shindan.js"></script>
-<script src="assets/kaisetsu.js"></script>
+<script src="assets/shindan.js?v=2"></script>
+<script src="assets/kaisetsu.js?v=2"></script>
 <script>
 (function(){
   "use strict";
   var KEY="okanekuse", store=load();
   function load(){ try{ return JSON.parse(localStorage.getItem(KEY)||"{}"); }catch(e){ return {}; } }
   function save(){ try{ localStorage.setItem(KEY,JSON.stringify(store)); }catch(e){} }
-  store.read = store.read || {};      // 日付 → 解説の番号
+  store.read = store.read || {};        // 日付 → ことばの番号
+  store.pick = store.pick || {};        // 日付 → その日に出したことばの番号
+  store.results = store.results || {};  // 編id → 結果
+  store.recN = store.recN || 0;         // おすすめの入れ替え用カウンタ
+  if(store.result && !store.results.base){ store.results.base=store.result; delete store.result; save(); }  // 旧データの引き継ぎ
   function key(d){ return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0"); }
   function todayKey(){ return key(new Date()); }
   function $(id){ return document.getElementById(id); }
+  function edById(id){ for(var i=0;i<EDITIONS.length;i++) if(EDITIONS[i].id===id) return EDITIONS[i]; return EDITIONS[0]; }
 
   /* ---- 音 ---- */
   var muted=store.mute===1, actx=null;
@@ -360,22 +396,40 @@
   $("aboutBtn").onclick=function(){ $("aboutModal").classList.add("on"); };
   $("aboutClose").onclick=function(){ $("aboutModal").classList.remove("on"); };
 
-  /* ---- トップ ---- */
+  /* ---- トップ：診断メニュー ---- */
   function renderTitle(){
-    var r=store.result;
-    $("prevBox").style.display = r ? "flex" : "none";
-    if(r){ $("prevImg").src="assets/r-"+r.main+".png"; $("prevName").textContent=TYPES[r.main].emoji+" "+TYPES[r.main].name+" ─ "+TYPES[r.main].title; }
+    var box=$("edList"); box.innerHTML="";
+    EDITIONS.forEach(function(ed,i){
+      var r=store.results[ed.id];
+      var b=document.createElement("button"); b.className="ed"+(i>0 && !r ? " new":"");
+      var em=document.createElement("span"); em.className="em"; em.textContent=ed.emoji;
+      var tx=document.createElement("span");
+      var nm=document.createElement("b"); nm.textContent=ed.name;
+      if(i>0 && !r){ var tg=document.createElement("span"); tg.className="tag"; tg.textContent="NEW"; nm.appendChild(tg); }
+      var s=document.createElement("span"); s.className="s"; s.textContent=ed.sub;
+      tx.appendChild(nm); tx.appendChild(s);
+      b.appendChild(em); b.appendChild(tx);
+      if(r){
+        var d=document.createElement("span"); d.className="done";
+        var im=document.createElement("img"); im.src="assets/r-"+r.main+".png"; im.alt=TYPES[r.main].name;
+        d.appendChild(im); b.appendChild(d);
+        b.onclick=function(){ renderResult(ed.id,r,false); };
+      }else{
+        b.onclick=function(){ startQuiz(ed.id); };
+      }
+      box.appendChild(b);
+    });
   }
-  $("prevBox").onclick=function(){ if(store.result) renderResult(store.result,false); };
 
   /* ---- 診断 ---- */
-  var answers=[], qi=0;
-  $("startBtn").onclick=function(){ ac(); answers=[]; qi=0; showQ(); show("s-quiz"); };
+  var cur=EDITIONS[0], answers=[], qi=0;
+  function startQuiz(id){ ac(); cur=edById(id); answers=[]; qi=0; showQ(); show("s-quiz"); }
   $("retryBtn").onclick=function(){ answers=[]; qi=0; showQ(); show("s-quiz"); };
   function showQ(){
-    var q=QUESTIONS[qi];
-    $("progBar").style.width=((qi)/QUESTIONS.length*100)+"%";
-    $("progNum").textContent=(qi+1)+" / "+QUESTIONS.length;
+    var Q=cur.questions, q=Q[qi];
+    $("qEd").textContent=cur.emoji+" "+cur.name;
+    $("progBar").style.width=((qi)/Q.length*100)+"%";
+    $("progNum").textContent=(qi+1)+" / "+Q.length;
     $("qText").textContent="Q"+(qi+1)+". "+q.q;
     $("qSub").style.display=q.sub?"block":"none"; $("qSub").textContent=q.sub||"";
     var box=$("ansBox"); box.innerHTML="";
@@ -394,45 +448,57 @@
     answers[qi]=i; btn.className="picked"; tick();
     setTimeout(function(){
       busy=false;
-      if(qi<QUESTIONS.length-1){ qi++; showQ(); }
+      if(qi<cur.questions.length-1){ qi++; showQ(); }
       else finish();
     }, 260);
   }
   $("qBack").onclick=function(){ if(qi>0){ qi--; showQ(); } };
 
-  function score(ans){
+  function score(ed,ans){
     var sc={G:0,L:0,S:0,K:0,T:0,B:0};
-    ans.forEach(function(a,i){ var s=QUESTIONS[i].a[a].s; for(var k in s) sc[k]+=s[k]; });
+    ans.forEach(function(a,i){ var s=ed.questions[i].a[a].s; for(var k in s) sc[k]+=s[k]; });
     var top=Math.max.apply(null, Object.keys(sc).map(function(k){ return sc[k]; }));
     var tops=PRI.filter(function(k){ return sc[k]===top; });
     return { main:tops[0], also:tops[1]||null, sc:sc };
   }
   function finish(){
-    var r=score(answers); r.date=todayKey();
-    store.result=r; save();
-    renderResult(r,true);
+    var r=score(cur,answers); r.date=todayKey();
+    store.results[cur.id]=r; save();
+    renderResult(cur.id,r,true);
   }
-  function renderResult(r,fresh){
-    var t=TYPES[r.main];
+  var shown={id:"base",r:null};
+  function renderResult(edId,r,fresh){
+    var ed=edById(edId), t=TYPES[r.main], tx=ed.text[r.main];
+    shown={id:edId,r:r};
     var ring=$("ring"); ring.style.setProperty("--tint",t.color);
     ring.classList.remove("pop"); void ring.offsetWidth; ring.classList.add("pop");
     $("resImg").src="assets/r-"+r.main+".png";
+    $("resBadge").textContent=ed.emoji+" "+ed.name+"｜あなたに似ている住民は";
     $("resName").textContent=t.emoji+" "+t.name;
     $("resTitle").textContent=t.title;
     $("resGame").textContent="投資人生ゲームでいうと：「"+t.game+"」";
-    $("resOne").textContent=t.one;
+    $("resOne").textContent=tx.one;
     if(r.also){ $("resAlso").style.display="inline-block"; $("resAlso").textContent=TYPES[r.also].emoji+" "+TYPES[r.also].name+"の一面もあります"; }
     else $("resAlso").style.display="none";
-    $("resKuse").textContent=t.kuse; $("resTsuyomi").textContent=t.tsuyomi;
-    $("resChui").textContent=t.chui; $("resMofu").textContent="「"+t.mofu+"」";
+    $("resKuse").textContent=tx.kuse; $("resTsuyomi").textContent=tx.tsuyomi;
+    $("resChui").textContent=tx.chui; $("resMofu").textContent="「"+tx.mofu+"」";
+    /* おすすめ：候補から1本ずつ、開くたびに入れ替え */
+    store.recN=(store.recN||0)+1; save();
+    var rc=RECS[r.main], n=store.recN;
+    var play=APPS[rc.play[n%rc.play.length]], read=READS[rc.read[(n+1)%rc.read.length]];
     var rec=$("recBox"); rec.innerHTML="";
-    [["🎮","あそぶ",t.play,"c-play"],["📖","よむ",t.read,"c-read"]].forEach(function(x){
+    [["🎮","あそぶ",play,"c-play"],["📖","よむ",read,"c-read"]].forEach(function(x){
       var a=document.createElement("a"); a.className="lk "+x[3]; a.href=x[2].u; a.target="_blank"; a.rel="noopener";
       var ico=document.createElement("span"); ico.className="ico"; ico.textContent=x[0];
-      var box=document.createElement("span"); var b=document.createElement("b"); b.textContent=x[1]+"：" + x[2].t;
+      var box=document.createElement("span"); var b=document.createElement("b"); b.textContent=x[1]+"："+x[2].t;
       var s=document.createElement("span"); s.className="s"; s.textContent=x[2].s;
       box.appendChild(b); box.appendChild(s); a.appendChild(ico); a.appendChild(box); rec.appendChild(a);
     });
+    /* まだやっていない編があれば誘う */
+    var next=null; EDITIONS.forEach(function(e){ if(!next && e.id!==edId && !store.results[e.id]) next=e; });
+    var nb=$("nextEd");
+    if(next){ nb.style.display="block"; nb.textContent=next.emoji+" 「"+next.name+"」もやってみる（"+next.sub+"）"; nb.onclick=function(){ startQuiz(next.id); }; }
+    else nb.style.display="none";
     show("s-result");
     if(fresh){ chime(); confetti(t.color); }
   }
@@ -462,9 +528,9 @@
     if(line) lines.push(line); return lines;
   }
   function rrect(x,a,b,w,h,r){ x.beginPath(); if(x.roundRect) x.roundRect(a,b,w,h,r); else x.rect(a,b,w,h); }
-  function buildCard(r){
+  function buildCard(edId,r){
     return new Promise(function(resolve){
-      var t=TYPES[r.main], W=1080, H=1350, cv=document.createElement("canvas"); cv.width=W; cv.height=H;
+      var ed=edById(edId), t=TYPES[r.main], tx=ed.text[r.main], W=1080, H=1350, cv=document.createElement("canvas"); cv.width=W; cv.height=H;
       var x=cv.getContext("2d"), done=false;
       function out(v){ if(!done){ done=true; resolve(v); } }
       setTimeout(function(){ out(null); }, 5000);
@@ -474,16 +540,14 @@
           var bg=x.createLinearGradient(0,0,0,H); bg.addColorStop(0,"#fdf8ef"); bg.addColorStop(1,"#f3ead9");
           x.fillStyle=bg; x.fillRect(0,0,W,H);
           x.textAlign="center"; x.fillStyle="#8a7b6c"; x.font="bold 34px "+FONT;
-          x.fillText("お金のクセ診断", W/2, 90);
+          x.fillText("お金のクセ診断 "+ed.emoji+" "+ed.name, W/2, 90);
           x.fillStyle="#b8892a"; x.font="26px "+FONT; x.fillText("あなたに似ている、丘の住民は？", W/2, 138);
-          /* 輪 */
           var cx=W/2, cy=470, R=250;
           var rg=x.createRadialGradient(cx,cy-60,20,cx,cy,R); rg.addColorStop(0,"#ffffff"); rg.addColorStop(1,t.color);
           x.beginPath(); x.arc(cx,cy,R+22,0,Math.PI*2); x.fillStyle="#f6e7bd"; x.fill();
           x.beginPath(); x.arc(cx,cy,R,0,Math.PI*2); x.fillStyle=rg; x.fill();
           x.lineWidth=10; x.strokeStyle="#d9a93c"; x.stroke();
           x.drawImage(im, cx-200, cy-200, 400, 400);
-          /* 札 */
           var py=790, ph=H-py-60;
           x.save(); x.shadowColor="rgba(120,100,70,.18)"; x.shadowBlur=26; x.shadowOffsetY=8;
           x.fillStyle="#fffdf8"; rrect(x,60,py,W-120,ph,40); x.fill(); x.restore();
@@ -491,7 +555,7 @@
           x.fillStyle="#4a4038"; x.font="bold 78px "+FONT; x.fillText(t.emoji+" "+t.name, W/2, py+120);
           x.fillStyle="#b8892a"; x.font="bold 40px "+FONT; x.fillText(t.title, W/2, py+185);
           x.fillStyle="#4a4038"; x.font="36px "+FONT;
-          var ls=wrap(x,t.one,W-240), ty=py+265; for(var i=0;i<ls.length&&i<3;i++){ x.fillText(ls[i],W/2,ty); ty+=52; }
+          var ls=wrap(x,tx.one,W-240), ty=py+265; for(var i=0;i<ls.length&&i<3;i++){ x.fillText(ls[i],W/2,ty); ty+=52; }
           if(r.also){ x.fillStyle="#8a7b6c"; x.font="28px "+FONT; x.fillText(TYPES[r.also].emoji+" "+TYPES[r.also].name+"の一面もあります", W/2, py+ph-60); }
           x.fillStyle="#8a7b6c"; x.font="26px "+FONT; x.fillText("お金のクセ診断 ｜ もふもふの丘", W/2, H-22);
           var durl=cv.toDataURL("image/png");
@@ -505,16 +569,16 @@
   var shotModal=$("shotModal");
   $("shotClose").onclick=function(){ shotModal.classList.remove("on"); };
   shotModal.onclick=function(e){ if(e.target===shotModal) shotModal.classList.remove("on"); };
-  function shareText(r){
-    var t=TYPES[r.main], NL=String.fromCharCode(10);
-    return "お金のクセ診断の結果は…"+t.emoji+t.name+"「"+t.title+"」"+NL+t.one+NL+"#お金のクセ診断 #もふもふの丘";
+  function shareText(edId,r){
+    var ed=edById(edId), t=TYPES[r.main], NL=String.fromCharCode(10);
+    return "お金のクセ診断（"+ed.name+"）の結果は…"+t.emoji+t.name+"「"+t.title+"」"+NL+ed.text[r.main].one+NL+"#お金のクセ診断 #もふもふの丘";
   }
   var shareBtn=$("shareBtn");
   shareBtn.onclick=function(){
-    var r=store.result; if(!r) return;
-    var text=shareText(r), url=location.href.split("#")[0].split("?")[0];
+    var r=shown.r; if(!r) return;
+    var text=shareText(shown.id,r), url=location.href.split("#")[0].split("?")[0];
     shareBtn.disabled=true; shareBtn.textContent="画像をつくっています…";
-    buildCard(r).catch(function(){ return null; }).then(function(card){
+    buildCard(shown.id,r).catch(function(){ return null; }).then(function(card){
       shareBtn.disabled=false; shareBtn.textContent="この結果をシェアする";
       if(!card){
         if(navigator.share) navigator.share({text:text,url:url}).catch(function(){});
@@ -532,8 +596,7 @@
     });
   };
 
-  /* ---- 今日の30秒解説 ---- */
-  store.pick = store.pick || {};       // 日付 → その日に出した解説の番号
+  /* ---- 30秒でわかる お金のことば ---- */
   function pickToday(){
     var tk=todayKey();
     if(store.pick[tk]!==undefined) return store.pick[tk];
@@ -551,7 +614,7 @@
   function renderKaisetsu(){
     var tk=todayKey(), idx=pickToday(), k=KAISETSU[idx];
     $("kCat").textContent=k.cat; $("kTitle").textContent=k.title; $("kBody").textContent=k.body;
-    $("kDate").textContent=fmt(tk)+"の解説";
+    $("kDate").textContent=fmt(tk)+"のことば";
     var done=store.read[tk]!==undefined;
     $("kStamp").className="stamp"+(done?" on":""); $("readBtn").style.display=done?"none":"block";
     drawCal(); drawArch();
@@ -588,7 +651,16 @@
   }
   $("prevM").onclick=function(){ calMonth.setMonth(calMonth.getMonth()-1); drawCal(); };
   $("nextM").onclick=function(){ calMonth.setMonth(calMonth.getMonth()+1); drawCal(); };
+  function drawColl(){
+    var got={}; Object.keys(store.read).forEach(function(k){ got[store.read[k]]=1; });
+    var n=Object.keys(got).length, total=KAISETSU.length;
+    $("collNum").textContent=n+" / "+total;
+    $("collBar").style.width=(n/total*100)+"%";
+    $("collMsg").textContent = n===0 ? "まず1つ、読んでみてください" :
+      n>=total ? "全部あつめました！ ことばが増えたら、また来てください" : "あと"+(total-n)+"個。1日ひとつずつ";
+  }
   function drawArch(){
+    drawColl();
     var ks=Object.keys(store.read).sort().reverse(), box=$("archBox"); box.innerHTML="";
     if(!ks.length){ box.innerHTML='<p class="hint">まだありません。「読んだ！」を押すと、ここにたまっていきます</p>'; return; }
     ks.forEach(function(k){
@@ -603,17 +675,17 @@
   }
   function openK(k){
     var e=KAISETSU[store.read[k]]; if(!e) return;
-    $("mCat").textContent=e.cat; $("mTitle").textContent=e.title; $("mBody").textContent=e.body; $("mDate").textContent=fmt(k)+"に読んだ解説";
+    $("mCat").textContent=e.cat; $("mTitle").textContent=e.title; $("mBody").textContent=e.body; $("mDate").textContent=fmt(k)+"に読んだことば";
     $("kModal").classList.add("on");
   }
   $("kClose").onclick=function(){ $("kModal").classList.remove("on"); };
   $("kModal").onclick=function(e){ if(e.target===$("kModal")) $("kModal").classList.remove("on"); };
 
   /* ---- 案内所 ---- */
-  var list=$("linkList"), cur="play";
+  var list=$("linkList"), curCat="play";
   LINKS.forEach(function(l){
-    if(l.g){ cur=l.c; var h=document.createElement("h2"); h.className="sec cat c-"+l.c; h.textContent=l.g; list.appendChild(h); return; }
-    var a=document.createElement("a"); a.className="lk c-"+cur; a.href=l.u; a.target="_blank"; a.rel="noopener";
+    if(l.g){ curCat=l.c; var h=document.createElement("h2"); h.className="sec cat c-"+l.c; h.textContent=l.g; list.appendChild(h); return; }
+    var a=document.createElement("a"); a.className="lk c-"+curCat; a.href=l.u; a.target="_blank"; a.rel="noopener";
     var ico=document.createElement("span"); ico.className="ico"; ico.textContent=l.i;
     var box=document.createElement("span"); var b=document.createElement("b"); b.textContent=l.t;
     var s=document.createElement("span"); s.className="s"; s.textContent=l.s;
@@ -625,9 +697,9 @@
   if("serviceWorker" in navigator && location.protocol.indexOf("http")===0){
     window.addEventListener("load", function(){ navigator.serviceWorker.register("sw.js").catch(function(){}); });
   }
-  window.__app={ store:store, show:show, score:score, TYPES:TYPES, QUESTIONS:QUESTIONS, KAISETSU:KAISETSU,
-    answer:function(arr){ answers=arr.slice(); qi=arr.length-1; finish(); },
-    force:function(main,also){ var r={main:main,also:also||null,date:todayKey()}; store.result=r; save(); renderResult(r,true); },
+  window.__app={ store:store, show:show, score:score, TYPES:TYPES, EDITIONS:EDITIONS, KAISETSU:KAISETSU, start:startQuiz,
+    answer:function(arr,edId){ cur=edById(edId||"base"); answers=arr.slice(); qi=arr.length-1; finish(); },
+    force:function(main,also,edId){ var id=edId||"base"; var r={main:main,also:also||null,date:todayKey()}; store.results[id]=r; save(); renderResult(id,r,true); },
     reset:function(){ localStorage.removeItem(KEY); location.reload(); } };
 })();
 </script>

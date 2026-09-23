@@ -33,7 +33,7 @@ self.addEventListener("fetch", function(e){
 
   /* HTML・JSはネット優先。つながらないときだけキャッシュを使う */
   e.respondWith(
-    fetch(e.request).then(function(res){
+    fetch(e.request, {cache:"no-cache"}).then(function(res){
       var copy = res.clone();
       caches.open(CACHE).then(function(c){ c.put(e.request, copy); });
       return res;

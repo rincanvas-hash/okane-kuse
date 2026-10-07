@@ -187,6 +187,14 @@
   .arch summary .c{font-size:11px;color:var(--gold2);margin-right:6px}
   .arch p{font-size:14px;margin:8px 0 0}
 
+  .totop{position:fixed;right:12px;bottom:calc(16px + env(safe-area-inset-bottom));width:46px;height:46px;border-radius:50%;
+    border:0;background:linear-gradient(180deg,#f3a961,var(--orange));color:#fff;font-size:20px;font-weight:700;
+    box-shadow:0 6px 16px rgba(200,120,50,.35);cursor:pointer;z-index:40;opacity:0;pointer-events:none;transition:opacity .25s}
+  .totop.on{opacity:1;pointer-events:auto}
+  .more{display:block;width:100%;margin-top:8px;padding:11px;border-radius:14px;border:1.5px dashed var(--line);
+    background:transparent;color:var(--sub);font-family:inherit;font-size:14px;cursor:pointer}
+  .arch-head{display:flex;align-items:center;justify-content:center;gap:10px}
+  .arch-head .n{font-size:12px;color:var(--gold2);background:var(--gold-soft);border-radius:999px;padding:1px 10px}
   .mute{position:fixed;top:10px;right:10px;border:0;background:rgba(255,255,255,.75);
     border-radius:50%;width:38px;height:38px;font-size:17px;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.08)}
   canvas#fx{position:fixed;inset:0;pointer-events:none;z-index:50}
@@ -202,6 +210,7 @@
 </head>
 <body>
 <button class="mute" id="mute" aria-label="音">🔔</button>
+<button class="totop" id="toTop" aria-label="上へ">↑</button>
 <canvas id="fx"></canvas>
 <div class="wrap">
   <header>
@@ -294,9 +303,10 @@
       <div class="grid" id="calGrid"></div>
     </div>
     <p class="hint">金の丸は、ことばを読んだ日。タップすると、その日のことばをもう一度読めます</p>
-    <h2 class="sec">あつめたことば</h2>
-    <div class="arch" id="archBox"><p class="hint">まだありません。「読んだ！」を押すと、ここにたまっていきます</p></div>
     <button class="btn back" data-go="s-title">← トップへ</button>
+    <h2 class="sec arch-head">あつめたことば <span class="n" id="archN">0</span></h2>
+    <div class="arch" id="archBox"><p class="hint">まだありません。「読んだ！」を押すと、ここにたまっていきます</p></div>
+    <button class="btn back" id="archBack" data-go="s-title" style="display:none">← トップへ</button>
   </section>
 
   <!-- 案内所 -->
@@ -344,7 +354,7 @@
 </div>
 
 <script src="assets/shindan.js?v=2"></script>
-<script src="assets/kaisetsu.js?v=2"></script>
+<script src="assets/kaisetsu.js?v=3"></script>
 <script>
 (function(){
   "use strict";
@@ -659,11 +669,14 @@
     $("collMsg").textContent = n===0 ? "まず1つ、読んでみてください" :
       n>=total ? "全部あつめました！ ことばが増えたら、また来てください" : "あと"+(total-n)+"個。1日ひとつずつ";
   }
+  var archShow=5;   /* 最初に見せる件数。「もっと見る」で10件ずつ増える */
   function drawArch(){
     drawColl();
     var ks=Object.keys(store.read).sort().reverse(), box=$("archBox"); box.innerHTML="";
+    $("archN").textContent=ks.length;
+    $("archBack").style.display = ks.length>archShow ? "block" : "none";   /* 下のトップへは、リストが長いときだけ */
     if(!ks.length){ box.innerHTML='<p class="hint">まだありません。「読んだ！」を押すと、ここにたまっていきます</p>'; return; }
-    ks.forEach(function(k){
+    ks.slice(0,archShow).forEach(function(k){
       var e=KAISETSU[store.read[k]]; if(!e) return;
       var d=document.createElement("details");
       var s=document.createElement("summary"); var c=document.createElement("span"); c.className="c"; c.textContent=e.cat;
@@ -672,7 +685,17 @@
       var dt=document.createElement("p"); dt.className="kdate"; dt.textContent=fmt(k);
       d.appendChild(s); d.appendChild(p); d.appendChild(dt); box.appendChild(d);
     });
+    if(ks.length>archShow){
+      var m=document.createElement("button"); m.className="more";
+      m.textContent="もっと見る（あと "+(ks.length-archShow)+" 件）";
+      m.onclick=function(){ archShow+=10; drawArch(); };
+      box.appendChild(m);
+    }
   }
+  /* スクロールしたら「↑」を出す（どの画面でも） */
+  var toTop=$("toTop");
+  toTop.onclick=function(){ window.scrollTo({top:0,behavior:"smooth"}); };
+  window.addEventListener("scroll", function(){ toTop.classList.toggle("on", window.scrollY>500); }, {passive:true});
   function openK(k){
     var e=KAISETSU[store.read[k]]; if(!e) return;
     $("mCat").textContent=e.cat; $("mTitle").textContent=e.title; $("mBody").textContent=e.body; $("mDate").textContent=fmt(k)+"に読んだことば";

@@ -72,7 +72,9 @@
   .ed .done{margin-left:auto;flex:0 0 auto;display:flex;align-items:center;gap:6px;font-size:12px;color:var(--sub)}
   .ed .done img{width:38px;height:38px;border-radius:50%;background:var(--bg2);border:2px solid var(--gold-soft)}
   .ed.new{border-color:var(--gold);background:linear-gradient(180deg,#fffdf6,#fff6dd)}
-  .ed .tag{font-size:10px;background:var(--gold);color:#fff;border-radius:999px;padding:1px 8px;margin-left:6px;vertical-align:middle}
+  .tag{font-size:10px;background:var(--gold);color:#fff;border-radius:999px;padding:1px 8px;margin-left:6px;vertical-align:middle;letter-spacing:0}
+  .tag.lim{background:#d2553d}
+  .badge .tag{background:#fff;color:#d2553d;font-weight:700}
 
   /* ---- 質問 ---- */
   .prog{display:flex;align-items:center;gap:10px;margin:6px 0 12px}
@@ -353,7 +355,7 @@
   </div>
 </div>
 
-<script src="assets/shindan.js?v=2"></script>
+<script src="assets/shindan.js?v=3"></script>
 <script src="assets/kaisetsu.js?v=4"></script>
 <script>
 (function(){
@@ -370,6 +372,12 @@
   function todayKey(){ return key(new Date()); }
   function $(id){ return document.getElementById(id); }
   function edById(id){ for(var i=0;i<EDITIONS.length;i++) if(EDITIONS[i].id===id) return EDITIONS[i]; return EDITIONS[0]; }
+  /* 期間限定の編（month:12 など）は、その月だけ出す。確認用に __app.month(12) で月を変えられる */
+  var fakeMonth=null;
+  function nowMonth(){ return fakeMonth||(new Date().getMonth()+1); }
+  function edActive(ed){ return !ed.month || ed.month===nowMonth(); }
+  function limName(ed){ return ed.limited||(ed.month+"月限定"); }
+  function limTag(ed){ var tg=document.createElement("span"); tg.className="tag lim"; tg.textContent=limName(ed); return tg; }
 
   /* ---- 音 ---- */
   var muted=store.mute===1, actx=null;
@@ -409,14 +417,18 @@
   /* ---- トップ：診断メニュー ---- */
   function renderTitle(){
     var box=$("edList"); box.innerHTML="";
-    EDITIONS.forEach(function(ed,i){
-      var r=store.results[ed.id];
-      var b=document.createElement("button"); b.className="ed"+(i>0 && !r ? " new":"");
+    /* 限定の編は、その月だけ出す（結果があれば翌月以降も「前回の結果」として残す）。今月の限定はいちばん上 */
+    var list=EDITIONS.filter(function(ed){ return edActive(ed) || store.results[ed.id]; });
+    list.sort(function(a,b){ return ((b.month&&edActive(b))?1:0)-((a.month&&edActive(a))?1:0); });
+    list.forEach(function(ed){
+      var r=store.results[ed.id], active=edActive(ed);
+      var b=document.createElement("button"); b.className="ed"+(ed.id!=="base" && !r && active ? " new":"");
       var em=document.createElement("span"); em.className="em"; em.textContent=ed.emoji;
       var tx=document.createElement("span");
       var nm=document.createElement("b"); nm.textContent=ed.name;
-      if(i>0 && !r){ var tg=document.createElement("span"); tg.className="tag"; tg.textContent="NEW"; nm.appendChild(tg); }
-      var s=document.createElement("span"); s.className="s"; s.textContent=ed.sub;
+      if(ed.month) nm.appendChild(limTag(ed));
+      else if(ed.id!=="base" && !r){ var tg=document.createElement("span"); tg.className="tag"; tg.textContent="NEW"; nm.appendChild(tg); }
+      var s=document.createElement("span"); s.className="s"; s.textContent=active ? ed.sub : "前回の結果を見る（次は"+ed.month+"月にまた出ます）";
       tx.appendChild(nm); tx.appendChild(s);
       b.appendChild(em); b.appendChild(tx);
       if(r){
@@ -433,7 +445,7 @@
 
   /* ---- 診断 ---- */
   var cur=EDITIONS[0], answers=[], qi=0;
-  function startQuiz(id){ ac(); cur=edById(id); answers=[]; qi=0; showQ(); show("s-quiz"); }
+  function startQuiz(id){ cur=edById(id); if(!edActive(cur)){ show("s-title"); return; } ac(); answers=[]; qi=0; showQ(); show("s-quiz"); }
   $("retryBtn").onclick=function(){ answers=[]; qi=0; showQ(); show("s-quiz"); };
   function showQ(){
     var Q=cur.questions, q=Q[qi];
@@ -483,7 +495,8 @@
     var ring=$("ring"); ring.style.setProperty("--tint",t.color);
     ring.classList.remove("pop"); void ring.offsetWidth; ring.classList.add("pop");
     $("resImg").src="assets/r-"+r.main+".png";
-    $("resBadge").textContent=ed.emoji+" "+ed.name+"｜あなたに似ている住民は";
+    var bd=$("resBadge"); bd.textContent=ed.emoji+" "+ed.name+"｜あなたに似ている住民は"; if(ed.month) bd.appendChild(limTag(ed));
+    $("retryBtn").style.display=edActive(ed)?"":"none";
     $("resName").textContent=t.emoji+" "+t.name;
     $("resTitle").textContent=t.title;
     $("resGame").textContent="投資人生ゲームでいうと：「"+t.game+"」";
@@ -505,7 +518,7 @@
       box.appendChild(b); box.appendChild(s); a.appendChild(ico); a.appendChild(box); rec.appendChild(a);
     });
     /* まだやっていない編があれば誘う */
-    var next=null; EDITIONS.forEach(function(e){ if(!next && e.id!==edId && !store.results[e.id]) next=e; });
+    var next=null; EDITIONS.forEach(function(e){ if(!next && e.id!==edId && edActive(e) && !store.results[e.id]) next=e; });
     var nb=$("nextEd");
     if(next){ nb.style.display="block"; nb.textContent=next.emoji+" 「"+next.name+"」もやってみる（"+next.sub+"）"; nb.onclick=function(){ startQuiz(next.id); }; }
     else nb.style.display="none";
@@ -550,7 +563,7 @@
           var bg=x.createLinearGradient(0,0,0,H); bg.addColorStop(0,"#fdf8ef"); bg.addColorStop(1,"#f3ead9");
           x.fillStyle=bg; x.fillRect(0,0,W,H);
           x.textAlign="center"; x.fillStyle="#8a7b6c"; x.font="bold 34px "+FONT;
-          x.fillText("お金のクセ診断 "+ed.emoji+" "+ed.name, W/2, 90);
+          x.fillText("お金のクセ診断 "+ed.emoji+" "+ed.name+(ed.month?"（"+limName(ed)+"）":""), W/2, 90);
           x.fillStyle="#b8892a"; x.font="26px "+FONT; x.fillText("あなたに似ている、丘の住民は？", W/2, 138);
           var cx=W/2, cy=470, R=250;
           var rg=x.createRadialGradient(cx,cy-60,20,cx,cy,R); rg.addColorStop(0,"#ffffff"); rg.addColorStop(1,t.color);
@@ -581,7 +594,7 @@
   shotModal.onclick=function(e){ if(e.target===shotModal) shotModal.classList.remove("on"); };
   function shareText(edId,r){
     var ed=edById(edId), t=TYPES[r.main], NL=String.fromCharCode(10);
-    return "お金のクセ診断（"+ed.name+"）の結果は…"+t.emoji+t.name+"「"+t.title+"」"+NL+ed.text[r.main].one+NL+"#お金のクセ診断 #もふもふの丘";
+    return "お金のクセ診断（"+ed.name+(ed.month?"・"+limName(ed):"")+"）の結果は…"+t.emoji+t.name+"「"+t.title+"」"+NL+ed.text[r.main].one+NL+"#お金のクセ診断 #もふもふの丘";
   }
   var shareBtn=$("shareBtn");
   shareBtn.onclick=function(){
@@ -723,6 +736,7 @@
   window.__app={ store:store, show:show, score:score, TYPES:TYPES, EDITIONS:EDITIONS, KAISETSU:KAISETSU, start:startQuiz,
     answer:function(arr,edId){ cur=edById(edId||"base"); answers=arr.slice(); qi=arr.length-1; finish(); },
     force:function(main,also,edId){ var id=edId||"base"; var r={main:main,also:also||null,date:todayKey()}; store.results[id]=r; save(); renderResult(id,r,true); },
+    month:function(m){ fakeMonth=m||null; renderTitle(); show("s-title"); },
     reset:function(){ localStorage.removeItem(KEY); location.reload(); } };
 })();
 </script>
